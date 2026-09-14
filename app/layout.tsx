@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { person } from "@/lib/content";
+import IntroAnimation from "@/components/IntroAnimation";
 import "./globals.css";
 
 // Self-hosted subsets (Fontsource, SIL OFL 1.1). Google's CSS for these CJK/Devanagari families
@@ -90,9 +91,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${dela.variable} ${zen.variable} ${klee.variable} ${rozha.variable} ${mukta.variable} ${kalam.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&display=swap" rel="stylesheet" />
         <script dangerouslySetInnerHTML={{ __html: revealScript }} />
       </head>
       <body>
+        <IntroAnimation />
         <a className="skip-link" href="#work">
           Skip to the work
         </a>
