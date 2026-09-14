@@ -16,12 +16,28 @@ const chapters = [
 function Masthead() {
   return (
     <nav aria-label="Chapters" className="relative z-30 flex items-center justify-between gap-4 border-b-[3px] border-ink bg-paper py-3">
-      <a href="#top" className="flex items-center gap-3 text-[1.05rem] font-black text-ink no-underline">
-        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+      <a
+        href="#top"
+        className="flex items-center gap-3 text-ink no-underline group"
+        aria-label={`${person.name} - Home`}
+      >
+        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true" className="shrink-0">
           <path d="M3 3h14v15H3zM20 3h9v9h-9zM20 15h9v14h-9zM3 21h14v8H3z" fill="none" stroke="var(--ink)" strokeWidth="2.5" />
           <rect x="21.5" y="16.5" width="6" height="11" fill="var(--spot)" />
         </svg>
-        {person.name}
+        <span
+          lang="hi"
+          style={{
+            fontFamily: "'Amita', cursive",
+            fontWeight: 700,
+            fontSize: "1.35rem",
+            lineHeight: 1,
+            letterSpacing: "0.02em",
+          }}
+          className="transition-colors group-hover:text-spot"
+        >
+          आक्षांत कुमार
+        </span>
       </a>
       <ul className="flex items-center gap-1 sm:gap-2">
         {chapters.map((c) => (

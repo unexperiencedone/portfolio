@@ -62,21 +62,74 @@ const kalam = localFont({
 });
 
 const description =
-  "Aakshant Kumar, a B.Tech CSE (AI) student at CSJM University, Kanpur. ML engineer and full-stack builder: VedaVoice (hackathon finalist), Robo Rumble 3.0, AirGated, and production client platforms.";
+  "Aakshant Kumar (आक्षांत कुमार) — Machine Learning Engineer & Full-Stack Builder. Co-founder & VP Tech at Kaiketsu Tech. Building production ML models, computer vision systems, and modern web architectures with PyTorch, FastAPI, and Next.js.";
+
+const shareDescription =
+  "Aakshant Kumar (आक्षांत कुमार) — ML Engineer & Full-Stack Builder. B.Tech CSE (AI) at CSJM University, Kanpur. Co-founder & VP Tech at Kaiketsu Tech. Creator of VedaVoice (hackathon finalist), Robo Rumble 3.0, and AirGated. Engineering applied AI pipelines, neural architectures, and robust web applications with PyTorch, FastAPI, TypeScript, and Next.js.";
 
 export const metadata: Metadata = {
-  title: `${person.name}: ML engineer who ships`,
+  metadataBase: new URL("https://aakshantkumar.vercel.app"),
+  title: {
+    default: `आक्षांत कुमार (Aakshant Kumar) | ML Engineer & Builder`,
+    template: `%s | Aakshant Kumar`,
+  },
   description,
+  keywords: [
+    "Aakshant Kumar",
+    "आक्षांत कुमार",
+    "ML Engineer",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Full-Stack Developer",
+    "PyTorch",
+    "FastAPI",
+    "Next.js",
+    "Kaiketsu Tech",
+    "CSJM University",
+    "Portfolio",
+  ],
   authors: [{ name: person.name, url: person.github }],
+  creator: person.name,
   verification: {
     google: "ZmWGt-xPRrOJjnBHw3S3vGMJFsrQPhxio2hTBER0Pf0",
   },
   openGraph: {
-    title: `${person.name}: ML engineer who ships`,
-    description,
-    type: "profile",
+    type: "website",
+    locale: "en_US",
+    url: "https://aakshantkumar.vercel.app",
+    siteName: "आक्षांत कुमार · Aakshant Kumar",
+    title: "आक्षांत कुमार (Aakshant Kumar) — ML Engineer & Builder",
+    description: shareDescription,
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "आक्षांत कुमार (Aakshant Kumar) — ML Engineer & Full-Stack Builder",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image", title: `${person.name}: ML engineer who ships`, description },
+  twitter: {
+    card: "summary_large_image",
+    title: "आक्षांत कुमार (Aakshant Kumar) — ML Engineer & Builder",
+    description: shareDescription,
+    images: ["/og-image.jpg"],
+    creator: "@kumaraakshant",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://aakshantkumar.vercel.app",
+  },
 };
 
 export const viewport: Viewport = {
@@ -95,6 +148,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&display=swap" rel="stylesheet" />
         <script dangerouslySetInnerHTML={{ __html: revealScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: person.name,
+              alternateName: ["आक्षांत कुमार", person.alias],
+              url: "https://aakshantkumar.vercel.app",
+              sameAs: [person.github, person.linkedin, person.kaiketsu],
+              jobTitle: "ML Engineer & Full-Stack Builder",
+              alumniOf: "CSJM University, Kanpur",
+              description,
+              image: "https://aakshantkumar.vercel.app/og-image.jpg",
+            }),
+          }}
+        />
       </head>
       <body>
         <IntroAnimation />
