@@ -67,6 +67,9 @@ export const metadata: Metadata = {
   title: `${person.name}: ML engineer who ships`,
   description,
   authors: [{ name: person.name, url: person.github }],
+  verification: {
+    google: "ZmWGt-xPRrOJjnBHw3S3vGMJFsrQPhxio2hTBER0Pf0",
+  },
   openGraph: {
     title: `${person.name}: ML engineer who ships`,
     description,
