@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T00:00:00Z",
+  "title": "Design System: Aakshant Kumar Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "spot": { "role": "primary", "displayName": "Editor's Spot Pink", "canonical": "#ff1f6f", "tonalRamp": ["#3d0019", "#6b002b", "#99003e", "#cc0052", "#ff1f6f", "#ff6a9f", "#ffb0cb", "#ffe3ec"] },
+      "paper": { "role": "neutral", "displayName": "Manuscript Paper", "canonical": "#f5f5f2", "tonalRamp": ["#262624", "#474744", "#6b6b67", "#92928d", "#b9b9b4", "#d6d6d1", "#e9e9e4", "#f5f5f2"] },
+      "paper-2": { "role": "neutral", "displayName": "Board Shadow Paper", "canonical": "#e9e9e4", "tonalRamp": ["#262624", "#474744", "#6b6b67", "#92928d", "#b9b9b4", "#d6d6d1", "#e9e9e4", "#f5f5f2"] },
+      "ink": { "role": "neutral", "displayName": "G-Pen Ink", "canonical": "#0d0d0d", "tonalRamp": ["#0d0d0d", "#262626", "#3b3b3b", "#595959", "#7a7a7a", "#9e9e9e", "#c4c4c4", "#ebebeb"] },
+      "ink-2": { "role": "neutral", "displayName": "Diluted Ink", "canonical": "#3b3b3b", "tonalRamp": ["#0d0d0d", "#262626", "#3b3b3b", "#595959", "#7a7a7a", "#9e9e9e", "#c4c4c4", "#ebebeb"] },
+      "guide": { "role": "neutral", "displayName": "Non-Repro Blue", "canonical": "#a9c8e8", "tonalRamp": ["#0f2033", "#1f3d5c", "#335c85", "#5282b3", "#7ba7d4", "#a9c8e8", "#d0e1f2", "#eef4fb"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "SFX Display", "purpose": "Beats only: splash name, proof numerals in insets, 404, closing banner. Uppercase, paper text-stroke 0.14em, tilted -2deg over speed lines." },
+      "display-flood": { "displayName": "Flood SFX", "purpose": "The two flood words, rotated -3deg with a 0.16em paper stroke." },
+      "display-hi": { "displayName": "Devanagari SFX", "purpose": "Hindi half of a bilingual beat under a flood word or in the closing banner; lang=\"hi\", +2deg counter-tilt, 0.12em paper stroke." },
+      "headline": { "displayName": "Ink Headline", "purpose": "Lead project titles, section titles, the positioning line." },
+      "title": { "displayName": "Ink Title", "purpose": "Mid project and narration-panel titles; outcomes." },
+      "body": { "displayName": "Body", "purpose": "Reading copy, max 62ch." },
+      "label": { "displayName": "Stamp Label", "purpose": "Status stamps and caption-box tabs only (0.75-0.8125rem, 0.06-0.08em, uppercase)." },
+      "pencil": { "displayName": "Editor's Pencil", "purpose": "Short aria-hidden spot annotations, rotated about -3deg." }
+    },
+    "frameWeights": [
+      { "name": "w-1", "value": "2px", "purpose": "Insets, badges, captions, small buttons." },
+      { "name": "w-2", "value": "3px", "purpose": "Standard panels, buttons, stamps, reader chrome, masthead rule." },
+      { "name": "w-3", "value": "5px", "purpose": "Splash panels and flood edges." }
+    ],
+    "lattice": [
+      { "name": "u", "value": "8px", "purpose": "Base unit; every gutter is a multiple." },
+      { "name": "gutter-beat", "value": "calc(var(--u) * 2)", "purpose": "Related panels, fast beat." },
+      { "name": "gutter-scene", "value": "calc(var(--u) * 7)", "purpose": "Scene change between lead projects and blocks." },
+      { "name": "gutter-chapter", "value": "calc(var(--u) * 16)", "purpose": "Product-to-research turn; jump into Skills." },
+      { "name": "gutter-held", "value": "clamp(calc(var(--u) * 20), 38svh, calc(var(--u) * 40))", "purpose": "Page turn with a dashed guide rule." },
+      { "name": "board-pad", "value": "clamp(16px, 4vw, 56px)", "purpose": "Board inline padding; guide lines sit at half." },
+      { "name": "board-max", "value": "1280px", "purpose": "Board max width." }
+    ],
+    "tone": [
+      { "name": "tone", "value": "radial-gradient(var(--ink) 0.95px, transparent 1.2px) 0 0 / 6px 6px", "purpose": "Standard screentone at events." },
+      { "name": "tone-coarse", "value": "radial-gradient(var(--ink) 1.6px, transparent 1.9px) 0 0 / 9px 9px", "purpose": "Heavier shading." },
+      { "name": "tone-spot", "value": "radial-gradient(var(--spot) 1.4px, transparent 1.7px) 0 0 / 7px 7px", "purpose": "Settled impact-corner flash." },
+      { "name": "tone-pressed", "value": "radial-gradient(var(--paper) 0.9px, transparent 1.2px) 0 0 / 5px 5px", "purpose": "Button active state over ink." }
+    ],
+    "shadows": [],
+    "motion": [
+      { "name": "ease-ink", "value": "cubic-bezier(0.7, 0, 0.2, 1)", "purpose": "Ink frame wipe (300ms clip-path) and circle draw-on (420ms, 380ms delay)." },
+      { "name": "ease-settle", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Panel body settling from rough (460ms); button press." },
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Flood field wipe (380ms), speed lines (700ms), impact tilt (420ms), reader tabs (260ms), index open (220ms)." },
+      { "name": "hover-inversion", "value": "120ms ease", "purpose": "Background/colour inversion on controls." },
+      { "name": "reveal-trigger", "value": "IntersectionObserver rootMargin 0px 0px -30% 0px", "purpose": "Panels ink as they cross 30% up the viewport." },
+      { "name": "reduced-motion", "value": "320ms opacity crossfade from 0.4", "purpose": "Replaces the rough-to-ink reveal and flood wipe under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "board-max", "value": "1280px" }
+    ],
+    "illustrationSlots": {
+      "source": "lib/illustrations.ts",
+      "count": 11,
+      "kinds": {
+        "cutout": "Transparent PNG on paper, may break out of frames: hero-author, origin-portrait, contact-sendoff.",
+        "scene": "White-ground PNG rendered with mix-blend-multiply: 21:9 lead establishing shots (vedavoice, roborumble, airgated, snake) and 16:9 mid headers (riseup, drishtikon, railways, ambisense)."
+      },
+      "renderRule": "Slot and its frame render only when public/illustrations/<file> exists; production renders nothing otherwise.",
+      "placeholder": "Dev or ILLUSTRATION_SLOTS=show: empty frame crossed in guide blue with a pencil 'ink pending: <file>' note.",
+      "status": "No rasters shipped; prompts in illustrations_prompt.md."
+    },
+    "rejectedFromStitch": {
+      "source": ".impeccable/stitch/screen.html (Devanagari-English Fusion Manga Portfolio)",
+      "adopted": ["Masthead with chapter nav", "Illustration slots", "Devanagari SFX lines under the two flood titles", "To be continued / जारी रहेगा closing banner"],
+      "rejected": ["Crimson / Anton / Space Grotesk tokens", "Hard offset shadows", "Kicker labels", "Percentage skill bars", "Contact form with no backend", "Fabricated testimonials and metrics"]
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button (spot)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one next action per beat: spot fill, ink frame, inverts to ink on hover, fills with tone when pressed.",
+      "html": "<a class=\"ds-btn ds-btn--spot\" href=\"#\">Read the work <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"square\" stroke-linejoin=\"miter\" aria-hidden=\"true\"><path d=\"M12 4v15M5.5 12.5 12 19l6.5-6.5\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; border: 3px solid var(--ink, #0d0d0d); border-radius: 0; background: var(--paper, #f5f5f2); color: var(--ink, #0d0d0d); font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 900; font-size: 1rem; letter-spacing: 0.01em; text-decoration: none; cursor: pointer; transition: background-color 120ms ease, color 120ms ease, transform 160ms cubic-bezier(0.22, 1, 0.36, 1); } .ds-btn--spot { background: var(--spot, #ff1f6f); } .ds-btn--spot:hover { background: var(--ink, #0d0d0d); color: var(--spot, #ff1f6f); } .ds-btn:focus-visible { outline: 3px solid var(--spot, #ff1f6f); outline-offset: 3px; } .ds-btn:active { transform: translateY(1px); background-image: radial-gradient(#f5f5f2 0.9px, transparent 1.2px); background-size: 5px 5px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper-filled inked frame for GitHub, LinkedIn and Copy address.",
+      "html": "<a class=\"ds-btn2\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M8.5 8.5h11v11h-11z\"/><path d=\"M15.5 8.5v-4h-11v11h4\"/></svg> Copy address</a>",
+      "css": ".ds-btn2 { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; border: 3px solid #0d0d0d; border-radius: 0; background: #f5f5f2; color: #0d0d0d; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 900; font-size: 1rem; text-decoration: none; transition: background-color 120ms ease, color 120ms ease; } .ds-btn2:hover { background: #0d0d0d; color: #f5f5f2; } .ds-btn2:focus-visible { outline: 3px solid #ff1f6f; outline-offset: 3px; } .ds-btn2:active { transform: translateY(1px); background-image: radial-gradient(#f5f5f2 0.9px, transparent 1.2px); background-size: 5px 5px; }"
+    },
+    {
+      "name": "Status Stamp",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Honest project status: solid for Finalist / In production / Shipped, dashed for Active / Paper in prep.",
+      "html": "<span class=\"ds-stamp ds-stamp--solid\">Finalist</span> <span class=\"ds-stamp ds-stamp--dashed\">Paper in prep</span>",
+      "css": ".ds-stamp { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 4px; border: 3px solid #0d0d0d; background: #f5f5f2; color: #0d0d0d; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 900; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.06em; transform: rotate(-2deg); white-space: nowrap; } .ds-stamp--solid { background: #0d0d0d; color: #f5f5f2; } .ds-stamp--dashed { border-style: dashed; }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Stack item in a 2px ink frame.",
+      "html": "<span class=\"ds-badge\">PyTorch</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; min-height: 30px; padding: 2px 10px; border: 2px solid #0d0d0d; background: #f5f5f2; color: #0d0d0d; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-size: 0.8125rem; font-weight: 700; line-height: 1.2; }"
+    },
+    {
+      "name": "Caption Box",
+      "kind": "card",
+      "refersTo": "caption",
+      "description": "Manga narration box carrying a Problem / Built / Outcome beat, with an ink tab hanging off the top-left.",
+      "html": "<div class=\"ds-caption\"><span class=\"ds-caption-label\">Outcome</span><p class=\"ds-caption-body\"><span class=\"ds-circled\">Finalist, Mind Installers 4.0<svg viewBox=\"0 0 100 40\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path pathLength=\"1\" d=\"M9 4.5C35 2.6 70 2.4 92 3.6 97.6 4 98.4 9 98.2 20 98 31 97 36.6 90 37 62 38.2 30 38 9 36.8 2.6 36.4 1.8 31 1.8 20 1.8 9.5 3 5.4 12 4 24 2.8 34 2.6 44 2.4\"/></svg></span></p></div>",
+      "css": ".ds-caption { position: relative; margin-top: 24px; border: 2px solid #0d0d0d; background: #f5f5f2; padding: 16px 16px 18px; color: #0d0d0d; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; } .ds-caption-label { position: absolute; top: -1px; left: -1px; transform: translateY(-100%); background: #0d0d0d; color: #f5f5f2; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px 3px; } .ds-caption-body { margin: 0; font-weight: 900; font-size: 1.3rem; line-height: 1.1; letter-spacing: -0.025em; } .ds-circled { position: relative; display: inline-block; } .ds-circled svg { position: absolute; inset: -9px -18px; width: calc(100% + 36px); height: calc(100% + 18px); overflow: visible; pointer-events: none; } .ds-circled path { fill: none; stroke: #ff1f6f; stroke-width: 3.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "The manga frame: 3px ink overlay (5px splash, 2px inset) above a rotated guide-blue rough stroke; impact panels flash a spot corner on hover.",
+      "html": "<article class=\"ds-panel\"><span class=\"ds-impact\"></span><div class=\"ds-panel-body\"><h3 class=\"ds-panel-title\">VedaVoice</h3><p class=\"ds-panel-text\">Hinglish voice-to-ledger for shopkeepers.</p></div></article>",
+      "css": ".ds-panel { position: relative; background: #f5f5f2; isolation: isolate; max-width: 420px; } .ds-panel::after { content: ''; position: absolute; inset: 0; border: 3px solid #0d0d0d; pointer-events: none; z-index: 5; } .ds-panel::before { content: ''; position: absolute; inset: -6px 5px 4px -5px; border: 1.5px solid #a9c8e8; transform: rotate(-0.4deg); opacity: 0.6; z-index: -1; pointer-events: none; } .ds-panel-body { position: relative; padding: 28px; transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-panel-title { margin: 0; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 900; font-size: 2.2rem; line-height: 1.02; letter-spacing: -0.025em; color: #0d0d0d; } .ds-panel-text { margin: 12px 0 0; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-size: 1.0625rem; line-height: 1.65; color: #3b3b3b; } .ds-impact { position: absolute; top: 0; right: 0; width: 88px; height: 88px; clip-path: polygon(100% 0, 0 0, 100% 100%); opacity: 0; z-index: 4; transition: opacity 520ms ease-out; background: radial-gradient(#ff1f6f 1.4px, transparent 1.7px) 0 0 / 7px 7px; } .ds-panel:hover .ds-impact, .ds-panel:focus-within .ds-impact { opacity: 1; } .ds-panel:hover .ds-panel-body { transform: translate(-1px, -1px) rotate(-0.35deg); }"
+    },
+    {
+      "name": "Masthead",
+      "kind": "nav",
+      "refersTo": "button-small",
+      "description": "Name with the four-panel mark, chapter links with spot underline on hover, a small spot Contact button, 3px ink rule beneath.",
+      "html": "<nav class=\"ds-mast\"><a class=\"ds-mast-name\" href=\"#\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M3 3h14v15H3zM20 3h9v9h-9zM20 15h9v14h-9zM3 21h14v8H3z\" fill=\"none\" stroke=\"#0d0d0d\" stroke-width=\"2.5\"/><rect x=\"21.5\" y=\"16.5\" width=\"6\" height=\"11\" fill=\"#ff1f6f\"/></svg>Aakshant Kumar</a><ul class=\"ds-mast-links\"><li><a href=\"#\">The work</a></li><li><a href=\"#\">Stack</a></li><li><a href=\"#\">Origin</a></li><li><a class=\"ds-mast-cta\" href=\"#\">Contact</a></li></ul></nav>",
+      "css": ".ds-mast { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 3px solid #0d0d0d; background: #f5f5f2; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; } .ds-mast-name { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 1.05rem; color: #0d0d0d; text-decoration: none; } .ds-mast-links { display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; } .ds-mast-links a { display: block; padding: 8px 12px; font-weight: 700; color: #0d0d0d; text-decoration: none; text-decoration-color: #ff1f6f; text-decoration-thickness: 3px; text-underline-offset: 6px; } .ds-mast-links a:hover { text-decoration-line: underline; } .ds-mast-links a:focus-visible { outline: 3px solid #ff1f6f; outline-offset: 3px; } .ds-mast-links a.ds-mast-cta { display: inline-flex; min-height: 40px; align-items: center; padding: 0 14px; border: 2px solid #0d0d0d; background: #ff1f6f; font-weight: 900; font-size: 0.9375rem; transition: background-color 120ms ease, color 120ms ease; } .ds-mast-links a.ds-mast-cta:hover { background: #0d0d0d; color: #ff1f6f; text-decoration-line: none; }"
+    },
+    {
+      "name": "Reader Page Counter",
+      "kind": "nav",
+      "refersTo": "reader-tab",
+      "description": "Fixed bottom-left tab showing the current panel in tabular numerals; opens the panel index.",
+      "html": "<button class=\"ds-reader-tab\" type=\"button\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4 3.5h7v8H4zM13 3.5h7v5h-7zM13 10.5h7v10h-7zM4 13.5h7v7H4z\"/></svg><span class=\"ds-tnum\">p.01<span class=\"ds-dim\"> / 14</span></span><span>Start</span></button>",
+      "css": ".ds-reader-tab { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 14px; border: 3px solid #0d0d0d; border-radius: 0; background: #f5f5f2; color: #0d0d0d; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 900; font-size: 0.9375rem; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; } .ds-reader-tab:hover { background: #0d0d0d; color: #f5f5f2; } .ds-reader-tab:hover .ds-dim { color: #f5f5f2; } .ds-reader-tab:focus-visible { outline: 3px solid #ff1f6f; outline-offset: 3px; } .ds-tnum { font-variant-numeric: tabular-nums; } .ds-dim { font-weight: 700; color: #3b3b3b; }"
+    },
+    {
+      "name": "Flood Title",
+      "kind": "custom",
+      "refersTo": "display-flood",
+      "description": "Structural transition: spot field, SFX word with a Devanagari SFX line, boxed caption. Two per page.",
+      "html": "<section class=\"ds-flood\"><h2 class=\"ds-flood-word\">The work</h2><p class=\"ds-flood-hi\" lang=\"hi\">कारनामे</p><p class=\"ds-flood-line\">Ordered by impact.</p></section>",
+      "css": ".ds-flood { display: grid; place-items: center; text-align: center; min-height: 260px; padding: 56px 16px; background: #ff1f6f; border-block: 5px solid #0d0d0d; overflow: clip; } .ds-flood-word { margin: 0; font-family: 'Dela Gothic One', 'Arial Black', sans-serif; font-weight: 400; font-size: clamp(3.25rem, 12vw, 6rem); line-height: 0.86; letter-spacing: -0.01em; text-transform: uppercase; color: #0d0d0d; -webkit-text-stroke: 0.16em #f5f5f2; paint-order: stroke fill; transform: rotate(-3deg); } .ds-flood-hi { margin: 12px 0 0; font-family: 'Rozha One', serif; font-size: clamp(2rem, 7vw, 3.6rem); line-height: 1.05; color: #0d0d0d; -webkit-text-stroke: 0.12em #f5f5f2; paint-order: stroke fill; transform: rotate(2deg); } .ds-flood-line { margin: 24px 0 0; display: inline-block; border: 3px solid #0d0d0d; background: #f5f5f2; padding: 6px 16px; font-family: 'Zen Kaku Gothic New', system-ui, sans-serif; font-weight: 700; font-size: 1rem; color: #0d0d0d; }"
+    },
+    {
+      "name": "Illustration Slot (pending)",
+      "kind": "custom",
+      "description": "Dev-only storyboard placeholder for a missing illustration: empty frame crossed in guide blue with a pencil note. Production renders nothing.",
+      "html": "<div class=\"ds-slot\" role=\"img\" aria-label=\"Illustration slot: VedaVoice establishing shot\"><svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\" aria-hidden=\"true\"><path d=\"M0 0 100 100M100 0 0 100\" stroke=\"#a9c8e8\" stroke-width=\"1\" vector-effect=\"non-scaling-stroke\"/></svg><span>ink pending: vedavoice-scene.png</span></div>",
+      "css": ".ds-slot { position: relative; display: grid; place-items: center; width: 100%; max-width: 480px; aspect-ratio: 21 / 9; border: 2px solid #0d0d0d; background: #f5f5f2; } .ds-slot svg { position: absolute; inset: 0; width: 100%; height: 100%; } .ds-slot span { position: relative; background: #f5f5f2; padding: 0 8px; font-family: 'Klee One', cursive; font-weight: 600; font-size: 1.125rem; line-height: 1.1; color: #ff1f6f; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Name to Ink",
+    "overview": "The whole site is one manga chapter caught between the storyboard (ネーム) and the finished page, laid out as a vertical webtoon strip. A bright manuscript board carries hard black frames; non-repro blue guide lines and trim marks show the structure underneath; one fluorescent spot ink plays the editor's pencil, circling the proof and flooding the two scene changes. Panels are the navigation and the length of a gutter is the timing: a short gutter is a fast beat, a long one is a scene change, a held gutter is a page turn.\n\nDensity is high inside a panel and generous between panels. Ornament is event-bound: screentone and speed lines appear at named moments (the splash, the two floods, the contact splash, a pressed button, an impact hover), never as wallpaper. Display lettering is manga SFX, used for beats only, and the bilingual beats pair it with Devanagari SFX in Rozha One. Every mark pairs shape with colour, so meaning never rides on hue alone.\n\nThe system rejects the hero-plus-card-grid category default. It also rejects, by recorded decision, the parts of the Google Stitch \"Devanagari-English Fusion Manga Portfolio\" screen that were reviewed and not adopted: its crimson / Anton / Space Grotesk token set, hard offset shadows, kicker labels, percentage skill bars, a contact form with no backend, and fabricated testimonials and metrics. Adopted from that screen: a masthead with chapter nav, illustration slots, Devanagari SFX lines under the flood titles, and a bilingual \"To be continued / जारी रहेगा\" closing banner.",
+    "keyCharacteristics": [
+      "Manuscript paper, G-pen ink, non-repro blue structure, one spot ink.",
+      "Square corners everywhere; hierarchy comes from frame weight (2 / 3 / 5px), not radius or shadow.",
+      "An 8px lattice with named gutters (beat, scene, chapter, held).",
+      "Panels ink in from a rough blue line as they cross 30% up the viewport; reduced motion crossfades.",
+      "Tone and speed lines are events, not textures.",
+      "Bilingual SFX beats (Latin + Devanagari) at structural moments only."
+    ],
+    "rules": [
+      { "name": "The Non-Repro Rule", "body": "Guide blue never carries text or meaning a reader must parse. It draws structure and the unfinished state, nothing else.", "section": "colors" },
+      { "name": "The Editor's Pencil Rule", "body": "Spot pink marks only proof, the next action, or a scene change. If a spot mark does not point at one of those, it is decoration and does not ship.", "section": "colors" },
+      { "name": "The Ink-On-Spot Rule", "body": "Text on a spot fill is ink (#0d0d0d), about 5.3:1. Informational text is never set in spot on paper.", "section": "colors" },
+      { "name": "The Beats-Only Rule", "body": "SFX lettering is for beats: the name, the two floods, proof numerals, the closing banner. It never sets a paragraph, a nav item or a button.", "section": "typography" },
+      { "name": "The Bilingual Beat Rule", "body": "Devanagari SFX appears only paired with a Latin SFX beat at a structural moment, always with lang=\"hi\". It is never decorative filler or a translation of body copy.", "section": "typography" },
+      { "name": "The Counted Gutter Rule", "body": "A gutter is a timing decision expressed in units of 8px. Pick beat, scene, chapter or held; never an eyeballed margin.", "section": "layout" },
+      { "name": "The Drawn Depth Rule", "body": "No box-shadow, no offset shadow, no blur. If something must read as in front, overlap it, rotate it, or give it a heavier frame.", "section": "elevation" },
+      { "name": "The Event Tone Rule", "body": "Tone and speed lines appear only at named events: splash, floods, contact splash, impact hover, pressed state. Never as a page background.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep every corner at 0px and express hierarchy with the 2 / 3 / 5px frame weights.",
+      "Do count gutters on the 8px lattice: beat 16px, scene 56px, chapter 128px, held clamp(160px, 38svh, 320px).",
+      "Do reserve spot pink (#ff1f6f) for proof, the next action and the two floods; put ink text on it.",
+      "Do wrap only verifiable proof in the editor's circle; give non-proof outcomes the dashed ink underline.",
+      "Do pair every Devanagari SFX line with a Latin SFX beat and mark it lang=\"hi\".",
+      "Do render scene illustrations with multiply onto paper and let cutouts break the frame; render nothing when the file is missing in production.",
+      "Do make every top-level panel addressable so the page counter and index stay true.",
+      "Do give every motion a reduced-motion crossfade and keep content legible without JavaScript."
+    ],
+    "donts": [
+      "Don't use box-shadows or hard offset shadows; depth is overlap, rotation and frame weight.",
+      "Don't use Stitch's crimson / Anton / Space Grotesk tokens; the palette and faces above are the system.",
+      "Don't add kicker or eyebrow labels above headings; uppercase label type belongs to stamps and caption tabs only.",
+      "Don't show skills as percentage bars; show frequency with frame weight and a counted ×n.",
+      "Don't ship a contact form without a backend; contact is mailto, copy address, GitHub and LinkedIn.",
+      "Don't add testimonials, client logos or metrics that are not in the evidence on hand.",
+      "Don't set text in guide blue or use it for anything but structure and the unfinished state.",
+      "Don't lay screentone or speed lines as a background; they belong to named events.",
+      "Don't add a third flood or use SFX lettering outside beats."
+    ]
+  }
+}

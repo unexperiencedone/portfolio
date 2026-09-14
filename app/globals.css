@@ -1,0 +1,632 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Manuscript board tokens ───────────────────────── */
+:root {
+  --paper: #f5f5f2;
+  --paper-2: #e9e9e4;
+  --ink: #0d0d0d;
+  --ink-2: #3b3b3b;
+  --guide: #a9c8e8; /* non-repro blue: structure only, never text */
+  --spot: #ff1f6f; /* the editor's spot ink: CTAs, proof, transitions */
+
+  /* frame weights */
+  --w-1: 2px;
+  --w-2: 3px;
+  --w-3: 5px;
+
+  /* lattice: every gutter is counted in units, never eyeballed */
+  --u: 8px;
+  --gutter-beat: calc(var(--u) * 2);
+  --gutter-scene: calc(var(--u) * 7);
+  --gutter-held: clamp(calc(var(--u) * 20), 38svh, calc(var(--u) * 40));
+  --board-pad: clamp(16px, 4vw, 56px);
+
+  --ease-ink: cubic-bezier(0.7, 0, 0.2, 1);
+  --ease-settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-guide: var(--guide);
+  --color-spot: var(--spot);
+  --font-sfx: var(--font-dela), var(--font-rozha), "Arial Black", sans-serif;
+  --font-sans: var(--font-zen), var(--font-mukta), system-ui, sans-serif;
+  --font-pencil: var(--font-klee), var(--font-kalam), var(--font-zen), cursive;
+}
+
+@layer components {
+/* ───────────────────────── Browser surfaces ───────────────────────── */
+html {
+  background: var(--paper);
+  scroll-padding-top: calc(var(--u) * 3);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  overflow-x: clip;
+  caret-color: var(--spot);
+  font-feature-settings: "palt" 0;
+}
+::selection {
+  background: var(--spot);
+  color: var(--ink);
+}
+:focus-visible {
+  outline: 3px solid var(--spot);
+  outline-offset: 3px;
+}
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 2px;
+}
+html {
+  scrollbar-color: var(--ink) var(--paper-2);
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 3px solid var(--paper-2);
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -80px;
+  z-index: 100;
+  background: var(--spot);
+  color: var(--ink);
+  border: var(--w-2) solid var(--ink);
+  padding: 10px 16px;
+  font-weight: 900;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ───────────────────────── The board ───────────────────────── */
+.board {
+  position: relative;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--board-pad);
+}
+/* the manuscript's inner-frame guide lines run the whole chapter */
+.board::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline: calc(var(--board-pad) / 2 - 1px);
+  border-inline: 1px solid var(--guide);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.trim {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  pointer-events: none;
+}
+.trim::before,
+.trim::after {
+  content: "";
+  position: absolute;
+  background: var(--ink);
+}
+.trim::before {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+}
+.trim::after {
+  height: 100%;
+  width: 1px;
+  left: 50%;
+}
+
+/* ───────────────────────── Type ───────────────────────── */
+.sfx {
+  font-family: var(--font-sfx);
+  font-weight: 400;
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.sfx-outline {
+  -webkit-text-stroke: 0;
+  paint-order: stroke fill;
+  text-shadow: none;
+}
+.title-ink {
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+/* Devanagari SFX lettering: the Hindi half of a bilingual beat */
+.sfx-hi {
+  font-family: var(--font-rozha), var(--font-sfx), serif;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.pencil {
+  font-family: var(--font-pencil);
+  font-weight: 600;
+  color: var(--spot);
+  line-height: 1.1;
+}
+.measure {
+  max-width: 62ch;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ───────────────────────── Panels ───────────────────────── */
+.panel {
+  --w: var(--w-2);
+  position: relative;
+  background: var(--paper);
+  isolation: isolate;
+}
+.panel--splash {
+  --w: var(--w-3);
+}
+.panel--inset {
+  --w: var(--w-1);
+}
+/* the ink frame */
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: var(--w) solid var(--ink);
+  pointer-events: none;
+  z-index: 5;
+  clip-path: inset(0);
+  transition: clip-path 300ms var(--ease-ink);
+}
+/* the rough ネーム stroke underneath, in non-repro blue */
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: -6px 5px 4px -5px;
+  border: 1.5px solid var(--guide);
+  transform: rotate(-0.4deg);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 500ms ease 200ms;
+}
+.panel:not(.panel--inset)::before {
+  opacity: 0.6;
+}
+.panel-body {
+  position: relative;
+  height: 100%;
+  transition: transform 460ms var(--ease-settle);
+}
+.panel--clip {
+  overflow: clip;
+}
+
+/* rough state — only after the head script opts in, never without JS */
+.reveal [data-ink]:not([data-inked])::after {
+  clip-path: inset(0 100% 100% 0);
+}
+.reveal [data-ink]:not([data-inked])::before {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+.reveal [data-ink]:not([data-inked]) > .panel-body {
+  transform: translate3d(0, 20px, 0) rotate(-0.6deg);
+}
+.reveal [data-ink] .tone-event {
+  transition:
+    opacity 260ms ease 180ms,
+    transform 520ms var(--ease-out-expo) 120ms;
+}
+.reveal [data-ink]:not([data-inked]) .tone-event {
+  opacity: 0;
+  transform: scale(1.06);
+}
+.reveal [data-ink] .circle-mark path {
+  transition: stroke-dashoffset 420ms var(--ease-ink) 380ms;
+}
+.reveal [data-ink]:not([data-inked]) .circle-mark path {
+  stroke-dashoffset: 1;
+}
+
+/* reduced motion: the chapter crossfades instead of snapping */
+.reveal-fade [data-ink] > .panel-body {
+  transition: opacity 320ms ease;
+}
+.reveal-fade [data-ink]:not([data-inked]) > .panel-body {
+  opacity: 0.4;
+}
+
+/* ───────────────────────── Screentone & speed lines (event-bound) ───────────────────────── */
+.tone {
+  background-image: radial-gradient(var(--ink) 0.95px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+.tone-coarse {
+  background-image: radial-gradient(var(--ink) 1.6px, transparent 1.9px);
+  background-size: 9px 9px;
+}
+.tone-spot {
+  background-image: radial-gradient(var(--spot) 1.4px, transparent 1.7px);
+  background-size: 7px 7px;
+}
+.tone-fade-r {
+  mask-image: linear-gradient(90deg, transparent 0%, #000 85%);
+}
+.tone-fade-b {
+  mask-image: linear-gradient(180deg, transparent 10%, #000 100%);
+}
+
+/* ───────────────────────── Controls ───────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: var(--w-2) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease,
+    transform 160ms var(--ease-settle);
+}
+.btn svg {
+  flex: none;
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn:active {
+  transform: translateY(1px);
+  background-image: radial-gradient(var(--paper) 0.9px, transparent 1.2px);
+  background-size: 5px 5px;
+}
+.btn--spot {
+  background: var(--spot);
+  color: var(--ink);
+}
+.btn--spot:hover {
+  background: var(--ink);
+  color: var(--spot);
+}
+.btn--small {
+  min-height: 40px;
+  padding: 0 14px;
+  font-size: 0.9375rem;
+  border-width: var(--w-1);
+}
+
+.link-ink {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--spot);
+  text-decoration-thickness: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.link-ink:hover {
+  text-decoration-color: var(--ink);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 2px 10px;
+  border: var(--w-1) solid var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  background: var(--paper);
+}
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 4px;
+  border: var(--w-2) solid var(--ink);
+  font-weight: 900;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--paper);
+  transform: rotate(-2deg);
+  white-space: nowrap;
+}
+.stamp--solid {
+  background: var(--ink);
+  color: var(--paper);
+}
+.stamp--dashed {
+  border-style: dashed;
+}
+
+/* caption box — the manga narration box that carries each case-study beat */
+.caption {
+  position: relative;
+  border: var(--w-1) solid var(--ink);
+  background: var(--paper);
+  padding: calc(var(--u) * 2) calc(var(--u) * 2) calc(var(--u) * 2.25);
+}
+.caption-label {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  transform: translateY(-100%);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px 3px;
+}
+
+/* the editor's circle around the proof */
+.circle-mark {
+  position: absolute;
+  inset: -9px -18px -9px -18px;
+  width: calc(100% + 36px);
+  height: calc(100% + 18px);
+  pointer-events: none;
+  overflow: visible;
+}
+.circle-mark path {
+  fill: none;
+  stroke: var(--spot);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ───────────────────────── Project panel impact hover ───────────────────────── */
+.impact-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 88px;
+  height: 88px;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .panel--impact:hover > .panel-body,
+  .panel--impact:focus-within > .panel-body {
+    animation: impact-tilt 420ms var(--ease-out-expo) forwards;
+  }
+  .panel--impact:hover .impact-corner,
+  .panel--impact:focus-within .impact-corner {
+    animation: impact-flash 520ms ease-out forwards;
+  }
+}
+@keyframes impact-tilt {
+  0% {
+    transform: none;
+  }
+  30% {
+    transform: translate(-3px, -3px) rotate(-0.9deg);
+  }
+  100% {
+    transform: translate(-1px, -1px) rotate(-0.35deg);
+  }
+}
+@keyframes impact-flash {
+  0% {
+    opacity: 0;
+    background: var(--spot);
+  }
+  18% {
+    opacity: 1;
+    background: var(--spot);
+  }
+  100% {
+    opacity: 1;
+    background: radial-gradient(var(--spot) 1.4px, transparent 1.7px) 0 0 / 7px 7px;
+  }
+}
+
+/* ───────────────────────── Flood transitions (2 only) ───────────────────────── */
+.flood {
+  position: relative;
+  /* floods sit directly in <main>, so 100% is already full-bleed; 100vw would add the scrollbar's width */
+  width: 100%;
+  min-height: clamp(260px, 52svh, 480px);
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  border-block: var(--w-3) solid var(--ink);
+}
+.flood-field {
+  position: absolute;
+  inset: 0;
+  background: var(--spot);
+  clip-path: inset(0);
+  transition: clip-path 380ms var(--ease-out-expo);
+}
+.flood-lines {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 700ms var(--ease-out-expo) 80ms,
+    opacity 200ms ease 80ms;
+}
+.reveal .flood:not([data-inked]) .flood-field {
+  clip-path: inset(0 0 0 100%);
+}
+.reveal .flood:not([data-inked]) .flood-lines {
+  transform: translateX(12%);
+  opacity: 0;
+}
+.reveal-fade .flood .flood-field {
+  transition: opacity 320ms ease;
+}
+.reveal-fade .flood:not([data-inked]) .flood-field {
+  opacity: 0.3;
+}
+
+.held-gutter {
+  position: relative;
+  height: var(--gutter-held);
+}
+.held-gutter::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 3);
+  bottom: calc(var(--u) * 3);
+  border-left: 1.5px dashed var(--guide);
+}
+
+/* ───────────────────────── Reader chrome ───────────────────────── */
+.reader-tab {
+  position: fixed;
+  bottom: 14px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: var(--w-2) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 900;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 260ms var(--ease-out-expo),
+    opacity 200ms ease,
+    background-color 120ms ease,
+    color 120ms ease;
+}
+.reader-tab:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.reader-tab--contact {
+  right: 14px;
+  background: var(--spot);
+}
+.reader-tab--contact:hover {
+  color: var(--spot);
+}
+.reader-tab--contact[data-hidden="true"] {
+  transform: translateY(calc(100% + 24px));
+  opacity: 0;
+  pointer-events: none;
+}
+.reader-tab--counter {
+  left: 14px;
+}
+@media (max-width: 639px) {
+  [data-idle="true"] .reader-tab--counter {
+    transform: translateY(calc(100% + 24px));
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+[data-idle="true"] .reader-tab--contact {
+  transform: translateY(calc(100% + 24px));
+  opacity: 0;
+  pointer-events: none;
+}
+.reader-index {
+  position: fixed;
+  left: 14px;
+  bottom: 72px;
+  z-index: 50;
+  width: min(340px, calc(100vw - 28px));
+  max-height: min(70svh, 560px);
+  overflow: auto;
+  background: var(--paper);
+  border: var(--w-2) solid var(--ink);
+  padding: calc(var(--u) * 1.5);
+  transform-origin: bottom left;
+  animation: index-open 220ms var(--ease-out-expo);
+}
+@keyframes index-open {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0;
+  }
+}
+.reader-index a {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 10px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  border: var(--w-1) solid transparent;
+}
+.reader-index a:hover {
+  border-color: var(--ink);
+}
+.reader-index a[aria-current="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .panel-body,
+  .btn,
+  .reader-tab {
+    transition-duration: 1ms;
+  }
+}
+
+} /* end @layer components */
