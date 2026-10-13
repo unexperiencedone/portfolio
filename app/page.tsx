@@ -16,6 +16,7 @@ const order = [
   ...midProjects.map((p) => ({ id: p.id, label: p.title })),
   { id: "shorter", label: "Side quests", href: "/works" },
   { id: "kaiketsu", label: "Kaiketsu Tech", href: "/kaiketsu" },
+  { id: "writing", label: "Writing", href: "/writing" },
   { id: "prologue", label: "Prologue" },
   ...arcs.map((a) => ({ id: a.id, label: a.name })),
   { id: "stack", label: "Skill tree" },
@@ -57,7 +58,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-[var(--gutter-beat)] grid gap-[var(--gutter-beat)] lg:grid-cols-2">
+          <div className="mt-[var(--gutter-beat)] grid gap-[var(--gutter-beat)] lg:grid-cols-3">
             <section id="shorter" data-panel={n("shorter")} data-panel-label="Side quests" aria-labelledby="shorter-title">
               <Link href="/works" className="group panel flex h-full flex-col p-6 sm:p-10 no-underline transition-colors duration-150 hover:bg-ink hover:text-paper" data-ink="">
                 <div className="panel-body flex flex-col justify-between h-full">
@@ -83,6 +84,21 @@ export default function Home() {
                   </div>
                   <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-black underline decoration-spot decoration-[3px] underline-offset-4">
                     About the studio <ArrowOut size={15} />
+                  </span>
+                </div>
+              </Link>
+            </section>
+
+            <section id="writing" data-panel={n("writing")} data-panel-label="Writing" aria-labelledby="writing-title">
+              <Link href="/writing" className="group panel flex h-full flex-col p-6 sm:p-10 no-underline transition-colors duration-150 hover:bg-ink hover:text-paper" data-ink="">
+                <div className="panel-body flex flex-col justify-between h-full">
+                  <div>
+                    <h3 id="writing-title" className="title-ink text-[clamp(1.8rem,3.4vw,2.6rem)]">Writing</h3>
+                    <p className="sfx-hi mt-2 text-[clamp(2rem,4.4vw,3rem)] leading-none" lang="hi">लेख</p>
+                    <p className="mt-6 font-bold max-w-[36ch] group-hover:text-paper text-ink-2">Every project, twice: the story of who it serves, and the technical build.</p>
+                  </div>
+                  <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-black underline decoration-spot decoration-[3px] underline-offset-4">
+                    Read <ArrowOut size={15} />
                   </span>
                 </div>
               </Link>
