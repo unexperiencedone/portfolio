@@ -131,6 +131,19 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
                 </div>
               </Figure>
             );
+          case "code":
+            figure += 1;
+            return (
+              <Figure key={i} n={figure} title={b.title} takeaway={b.takeaway} wide>
+                <div className="flex items-center justify-between gap-4 border-b-[3px] border-ink pb-2 text-[0.85rem] font-black">
+                  <span className="truncate">{b.source}</span>
+                  <span className="shrink-0 uppercase tracking-[0.08em]">{b.lang}</span>
+                </div>
+                <pre className="overflow-x-auto pt-3 text-[0.88rem] leading-[1.6]" tabIndex={0} aria-label={`${b.lang} from ${b.source}`}>
+                  <code>{b.text}</code>
+                </pre>
+              </Figure>
+            );
         }
       })}
     </div>
