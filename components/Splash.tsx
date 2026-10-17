@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { person } from "@/lib/content";
-import { ArrowDown, GitHub, LinkedIn, Mail } from "./Icons";
+import { ArrowDown, ArrowOut, GitHub, LinkedIn, Mail } from "./Icons";
 import { IfInk, Illustration } from "./Illustration";
 import { Circled, Panel, PencilArrow } from "./Panel";
 import { SpeedLines } from "./SpeedLines";
@@ -15,10 +16,10 @@ const chapters = [
 
 function Masthead() {
   return (
-    <nav aria-label="Chapters" className="relative z-30 flex items-center justify-between gap-4 border-b-[3px] border-ink bg-paper py-3">
+    <nav aria-label="Chapters" className="relative z-30 flex items-center justify-between gap-2 sm:gap-4 border-b-[3px] border-ink bg-paper py-3">
       <a
         href="#top"
-        className="flex items-center gap-3 text-ink no-underline group"
+        className="flex items-center gap-2 sm:gap-3 text-ink no-underline group shrink-0"
         aria-label={`${person.name} - Home`}
       >
         <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true" className="shrink-0">
@@ -39,7 +40,7 @@ function Masthead() {
           आक्षांत कुमार
         </span>
       </a>
-      <ul className="flex items-center gap-1 sm:gap-2">
+      <ul className="flex items-center gap-1.5 sm:gap-2">
         {chapters.map((c) => (
           <li key={c.href} className="hidden md:block">
             <a href={c.href} className="group flex flex-col items-center px-3 py-1 leading-tight text-ink no-underline">
@@ -50,9 +51,23 @@ function Masthead() {
             </a>
           </li>
         ))}
+        <li className="hidden md:block">
+          <Link
+            href="/writing"
+            className="btn btn--small btn--spot shadow-[2px_2px_0_var(--ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none !px-3.5 !min-h-[40px] text-sm font-black flex items-center gap-1 hover:!text-white"
+            aria-label="Writings (takes to writings page)"
+          >
+            <span>Writings</span>
+            <span className="font-bold text-xs" lang="hi">· लेख</span>
+            <ArrowOut size={13} className="shrink-0 stroke-[2.5]" />
+          </Link>
+        </li>
         <li>
-          <a className="btn btn--small btn--spot" href="#contact-flood">
-            <Mail size={16} /> Contact · <span lang="hi">संपर्क</span>
+          <a className="btn btn--small !px-2.5 sm:!px-3.5 !min-h-[36px] sm:!min-h-[40px] text-xs sm:text-sm hover:!text-white" href="#contact-flood">
+            <Mail size={15} />
+            <span className="hidden sm:inline">Contact · </span>
+            <span className="hidden sm:inline" lang="hi">संपर्क</span>
+            <span className="sm:hidden">Contact</span>
           </a>
         </li>
       </ul>

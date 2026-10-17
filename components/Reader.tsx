@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { Close, Mail, Pages } from "./Icons";
+import { ArrowOut, Close, Mail, Pages } from "./Icons";
 
 type Entry = { id: string; n: number; label: string; href?: string };
 
@@ -135,14 +135,29 @@ export function Reader({ entries }: { entries: Entry[] }) {
             {entries.map((e) => (
               <li key={e.id}>
                 {e.href ? (
-                  <Link href={e.href} aria-current={e.n === current ? "true" : undefined} onClick={() => setOpen(false)}>
-                    <span className="tnum">p.{pad(e.n)}</span>
-                    <span>{e.label}</span>
+                  <Link
+                    href={e.href}
+                    aria-current={e.n === current ? "true" : undefined}
+                    onClick={() => setOpen(false)}
+                    className="group/item !bg-[color-mix(in_srgb,var(--spot)_15%,transparent)] !border-spot hover:!bg-ink hover:!border-ink flex items-center justify-between transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="tnum font-black text-spot group-hover/item:!text-white transition-colors">p.{pad(e.n)}</span>
+                      <span className="font-bold underline decoration-spot decoration-[2px] underline-offset-2 group-hover/item:!text-white transition-colors">{e.label}</span>
+                    </span>
+                    <span className="text-[0.68rem] font-black uppercase tracking-wider bg-spot text-ink px-1.5 py-0.5 border border-ink flex items-center gap-0.5 shrink-0">
+                      Page <ArrowOut size={10} />
+                    </span>
                   </Link>
                 ) : (
-                  <a href={`#${e.id}`} aria-current={e.n === current ? "true" : undefined} onClick={() => setOpen(false)}>
-                    <span className="tnum">p.{pad(e.n)}</span>
-                    <span>{e.label}</span>
+                  <a
+                    href={`#${e.id}`}
+                    aria-current={e.n === current ? "true" : undefined}
+                    onClick={() => setOpen(false)}
+                    className="group/item hover:!bg-ink hover:!text-white transition-colors"
+                  >
+                    <span className="tnum group-hover/item:!text-white transition-colors">p.{pad(e.n)}</span>
+                    <span className="group-hover/item:!text-white transition-colors">{e.label}</span>
                   </a>
                 )}
               </li>
